@@ -87,8 +87,79 @@ export default function App() {
   
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Animated.View
+        style={{
+          ...StyleSheet.absoluteFill,
+          transform: [{ translateY: bgY }],
+        }}
+      >
+        <Svg height={height + 50} width={width}>
+          <ClipPath id="bottomClip">
+            <Circle r={height + 50} cx={width / 2} />
+          </ClipPath>
+          <Image
+            href={require("./assets/splash.png")}
+            width={width}
+            height={height + 50}
+            preserveAspectRatio="xMidYMid slice"
+            clipPath="url(#bottomClip)"
+          />
+        </Svg>
+      </Animated.View>
+      <View
+        style={{
+          height: height / 3,
+          justifyContent: "center",
+          backgroundColor: "transparent",
+        }}
+      >
+        <TapGestureHandler onHandlerStateChange={onStateChange}>
+          <Animated.View
+            style={{
+              ...styles.button,
+              opacity: buttonOpacity,
+              transform: [{ translateY: buttonY }],
+            }}
+          >
+            <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>
+              Start 
+            </Text>
+          </Animated.View>
+        </TapGestureHandler>
+        <Animated.View
+          style={{
+            zIndex: textInputZIndex,
+            opacity: textInputOpacity,
+            transform: [{ translateY: textInputY }],
+            height: height / 3,
+            ...StyleSheet.absoluteFill,
+            top: undefined,
+            justifyContent: "center",
+          }}
+        >
+          <TapGestureHandler onHandlerStateChange={onCloseState}>
+            <Animated.View style={styles.closeButton}>
+              <Animated.Text
+                style={{
+                  fontSize: 15,
+                  transform: [{ rotate: concat(rotateCross, "deg") }],
+                }}
+              >
+                X
+              </Animated.Text>
+            </Animated.View>
+          </TapGestureHandler>
+
+          <TextInput
+            placeholder="Email or search ..."
+            style={styles.textInput}
+            placeholderTextColor="black"
+          />
+          <Animated.View style={{...styles.button, backgroundColor: '#9d8420'}}>
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>Some other CTA</Text>
+          </Animated.View>
+        </Animated.View>
+      </View>
     </View>
   );
 }
@@ -96,8 +167,45 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    // backgroundColor: "white",
+    justifyContent: "flex-end",
+  },
+  button: {
+    backgroundColor: "#ffa737",
+    height: 70,
+    marginHorizontal: 20,
+    borderRadius: 35,
     alignItems: "center",
     justifyContent: "center",
+    marginVertical: 5,
+    shadowOffset: { width: 2, height: 2 },
+    shadowColor: "black",
+    shadowOpacity: 0.2,
+    elevation: 12,
+  },
+  closeButton: {
+    height: 40,
+    width: 40,
+    backgroundColor: "white",
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    top: 0,
+    left: width / 2 - 20,
+    shadowOffset: { width: 2, height: 2 },
+    shadowColor: "black",
+    shadowOpacity: 0.2,
+    elevation: 12,
+  },
+  textInput: {
+    height: 50,
+    borderRadius: 25,
+    borderWidth: 0.5,
+    marginHorizontal: 20,
+    paddingLeft: 10,
+    marginVertical: 5,
+    borderColor: "rgba(0,0,0,0.2)",
+    elevation: 1,
   },
 });
