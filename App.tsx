@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Dimensions, Platform } from "react-native";
 import Animated, { Easing } from "react-native-reanimated";
 import {
   TapGestureHandler,
@@ -9,6 +9,8 @@ import {
 } from "react-native-gesture-handler";
 import Svg, { Image, Circle, ClipPath } from "react-native-svg";
 import { runTiming } from "./utils";
+
+
 
 const { width, height } = Dimensions.get("window");
 const {
@@ -117,7 +119,7 @@ export default function App() {
           <Animated.View
             style={{
               ...styles.button,
-              opacity: buttonOpacity,
+              opacity: buttonOpacity, marginTop: 150,
               transform: [{ translateY: buttonY }],
             }}
           >
@@ -173,15 +175,16 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "#ffa737",
     height: 70,
-    marginHorizontal: 20,
+    marginHorizontal: 30,
     borderRadius: 35,
     alignItems: "center",
     justifyContent: "center",
-    marginVertical: 5,
+    marginVertical: 15,
     shadowOffset: { width: 2, height: 2 },
     shadowColor: "black",
     shadowOpacity: 0.2,
     elevation: 12,
+    
   },
   closeButton: {
     height: 40,
@@ -191,7 +194,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     position: "absolute",
-    top: 0,
+    top: -20,
     left: width / 2 - 20,
     shadowOffset: { width: 2, height: 2 },
     shadowColor: "black",
